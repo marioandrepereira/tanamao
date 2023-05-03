@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -18,17 +18,17 @@
     <div class="container">
       <div class="forms-container">
         <div class="signin-signup">
-          <form action="#" class="sign-in-form">
-            <h2 class="title">Sign in</h2>
+          <form id="login-form" action="#" class="sign-in-form">
+            <h2 class="title">Login</h2>
             <div class="input-field">
               <i class="fas fa-user"></i>
-              <input type="text" placeholder="Username" />
+              <input type="text" placeholder="Usuário" />
             </div>
             <div class="input-field">
               <i class="fas fa-lock"></i>
-              <input type="password" placeholder="Password" />
+              <input type="password" placeholder="Senha" />
             </div>
-            <input type="submit" value="Login" class="btn solid" />
+            <input type="submit" value="Entrar" class="btn solid" />
             <p class="social-text">Ou inscreva-se nas plataformas sociais</p>
             <div class="social-media">
               <a href="#" class="social-icon">
@@ -58,6 +58,10 @@
             <div class="input-field">
               <i class="fas fa-lock"></i>
               <input type="password" placeholder="Password" />
+            </div>
+            <div class="input-field">
+              <i class="fas fa-address-card"></i>
+              <input type="text" placeholder="CPF" pattern="\d{3}\.\d{3}\.\d{3}-\d{2}" oninput="formatCPF(this)" required />
             </div>
             <input type="submit" class="btn" value="Finalize" />
             <p class="social-text">Ou inscreva-se nas plataformas sociais</p>
