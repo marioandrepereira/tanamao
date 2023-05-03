@@ -10,19 +10,7 @@ body,
 input {
   font-family: "Poppins", sans-serif;
 }
-.shake {
-  animation: shake 0.3s ease-in-out;
-}
 
-@keyframes shake {
-  0% { transform: translateX(0); }
-  10%, 90% { transform: translateX(-10px); }
-  30%, 70% { transform: translateX(10px); }
-  50% { transform: translateX(0); }
-}
-.forms-container.shake {
-  border-color: red;
-}
 .container {
   position: relative;
   width: 100%;

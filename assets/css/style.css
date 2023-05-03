@@ -44,19 +44,19 @@ section {
 }
 
 .section-header h2 {
-  font-size: 15px;
-  font-weight: 800;
+  font-size: 13px;
+  letter-spacing: 1px;
+  font-weight: 700;
+  margin: 0;
   color: #4154f1;
   text-transform: uppercase;
 }
 
-.about p {
-  margin: 15px 0 30px 0;
-  line-height: 24px;
-}
-
-.about h3 {
-  font-size: 24px;
+.section-header p {
+  margin: 10px 0 0 0;
+  padding: 0;
+  font-size: 38px;
+  line-height: 42px;
   font-weight: 700;
   color: #012970;
 }
@@ -556,7 +556,6 @@ section {
 .about p {
   margin: 15px 0 30px 0;
   line-height: 24px;
-  text-align: justify;
 }
 
 .about .btn-read-more {
