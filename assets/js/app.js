@@ -27,9 +27,16 @@ loginForm.addEventListener("submit", (event) => {
     }, 300);
   }
 });
+
 function formatCPF(cpf) {
   // remove qualquer caractere que não seja um número
   cpf.value = cpf.value.replace(/\D/g, '');
+
+  // verifica se todos os dígitos são iguais e, em caso afirmativo, retorna um CPF inválido
+  if (/^(\d)\1{10}$/.test(cpf.value)) {
+    cpf.value = '';
+    return cpf;
+  }
 
   // limita o número de dígitos ao número total de dígitos de um CPF
   if (cpf.value.length > 11) {
@@ -42,5 +49,6 @@ function formatCPF(cpf) {
   cpf.value = cpf.value.replace(/\.(\d{3})(\d)/g, '.$1-$2');
   return cpf;
 }
+
 
 
