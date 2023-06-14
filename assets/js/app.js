@@ -19,7 +19,7 @@ loginForm.addEventListener("submit", (event) => {
   const formContainer = loginForm.closest(".forms-container");
 
   if (password) {
-    window.location.href = "index.html";
+    window.location.href = "perfil.html";
   } else {
     formContainer.classList.add("shake");
     setTimeout(() => {
