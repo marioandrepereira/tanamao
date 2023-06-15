@@ -11,22 +11,7 @@ sign_in_btn.addEventListener("click", () => {
   container.classList.remove("sign-up-mode");
 });
 
-loginForm.addEventListener("submit", (event) => {
-  event.preventDefault(); // evita que o formulário seja enviado
 
-  const username = loginForm.querySelector("input[type='text']").value.trim();
-  const password = loginForm.querySelector("input[type='password']").value.trim();
-  const formContainer = loginForm.closest(".forms-container");
-
-  if (password) {
-    window.location.href = "perfil.html";
-  } else {
-    formContainer.classList.add("shake");
-    setTimeout(() => {
-      formContainer.classList.remove("shake");
-    }, 300);
-  }
-});
 
 function formatCPF(cpf) {
   // remove qualquer caractere que não seja um número
