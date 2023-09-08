@@ -24,7 +24,7 @@ function formatCPF(cpf) {
   }
 
   // limita o número de dígitos ao número total de dígitos de um CPF
-  if (cpf.value.length > 11) {
+  if (cpf.value.length > 11){
     cpf.value = cpf.value.slice(0, 11);
   }
 

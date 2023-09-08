@@ -22,7 +22,7 @@
   /**
    * Easy event listener function
    */
-  const on = (type, el, listener, all = false) => {
+  const on = (type, el, listener, all = false) =>{
     if (all) {
       select(el, all).forEach(e => e.addEventListener(type, listener))
     } else {

@@ -9,7 +9,7 @@ const pool = new Pool({
   port: 5432, // Porta padrão do PostgreSQL é 5432
 });
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function(){
   const signUpForm = document.querySelector('.sign-up-form');
   signUpForm.addEventListener('submit', function(event) {
     event.preventDefault(); // Impede o envio do formulário
