@@ -34,6 +34,54 @@ function formatCPF(cpf) {
   cpf.value = cpf.value.replace(/\.(\d{3})(\d)/g, '.$1-$2');
   return cpf;
 }
+document.getElementById('cadastro-form').addEventListener('submit', function (event) {
+  event.preventDefault();
+
+  const username = document.getElementById('username').value;
+  const email = document.getElementById('email').value;
+  const password = document.getElementById('password').value;
+  const cpf = document.getElementById('cpf').value;
+
+  const data = {
+      username: username,
+      email: email,
+      password: password,
+      cpf: cpf
+  };
+
+  // Realiza a requisição para a API Flask
+  fetch('/api/create_user', {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+  })
+  .then(response => response.json())
+  .then(responseData => {
+      if (responseData.message) {
+          alert(responseData.message);  // Você pode querer redirecionar o usuário ou fazer outras ações aqui
+      } else {
+          console.error('Resposta da API não reconhecida:', responseData);
+      }
+  })
+  .catch(error => {
+      console.error('Erro na requisição:', error);
+  });
+});
+
+// Função para formatar o CPF
+function formatCPF(input) {
+  let value = input.value.replace(/\D/g, '');
+  if (value.length > 9) {
+      value = value.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
+  } else if (value.length > 6) {
+      value = value.replace(/(\d{3})(\d{3})(\d{3})/, '$1.$2.$3');
+  } else if (value.length > 3) {
+      value = value.replace(/(\d{3})(\d{3})/, '$1.$2');
+  }
+  input.value = value;
+}
 
 
 
