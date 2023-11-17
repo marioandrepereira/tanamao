@@ -6,11 +6,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
   loginForm.addEventListener("submit", function (event) {
     event.preventDefault();
-    // Implement API call for login
+
     const username = loginForm.querySelector('input[type="text"]').value;
     const password = loginForm.querySelector('input[type="password"]').value;
 
-    // Example: Replace the following line with your actual API call
     fetch("http://10.22.0.250:3000/login", {
       method: "POST",
       headers: {
@@ -20,20 +19,22 @@ document.addEventListener("DOMContentLoaded", function () {
     })
       .then(response => response.json())
       .then(data => {
-        // Handle the response from the login API call
         console.log(data);
         if (data.message === "Login bem-sucedido!") {
-          // Redirect to user.html after successful login
+          // Armazenar o token no localStorage após um login bem-sucedido
+          localStorage.setItem('token', data.token);
+
+          // Redirecionar para perfil.html após um login bem-sucedido
           window.location.href = "perfil.html";
         } else {
-          // Handle other responses or display an error message
           alert("Usuário ou senha inválidos");
         }
       })
       .catch(error => {
         console.error("Error during login API call:", error);
       });
-  });
+});
+
 
   cadastroForm.addEventListener("submit", async function (event) {
     event.preventDefault();

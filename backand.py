@@ -4,6 +4,43 @@ from flask_cors import CORS  # Importe o módulo CORS
 app = Flask(__name__)
 CORS(app)  # Ative o CORS para todos os caminhos da sua aplicação
 
+
+# Função para obter informações do perfil do usuário
+def obter_informacoes_perfil(username):
+    with open('users.txt', 'r') as file:
+        for line in file:
+            stored_username, _, stored_email, _ = line.strip().split(',')
+            if username == stored_username:
+                return {
+                    'username': stored_username,
+                    'email': stored_email
+                }
+    return None
+
+# Rota para obter o perfil do usuário
+@app.route('/perfil', methods=['GET'])
+def perfil():
+    try:
+        # Obter o token do cabeçalho
+        token = request.headers.get('Authorization').split(' ')[1]
+
+        # Implementar lógica para obter o username associado ao token
+        # Substitua a lógica abaixo pela sua implementação real
+        username = 'usuario_teste'
+
+        # Obter informações do perfil
+        informacoes_perfil = obter_informacoes_perfil(username)
+
+        if informacoes_perfil:
+            return jsonify(informacoes_perfil)
+        else:
+            return jsonify({'error': 'Perfil não encontrado'}), 404
+
+    except IndexError:
+        return jsonify({'error': 'Token não fornecido'}), 401
+    except Exception as e:
+        return jsonify({'error': f'Erro: {str(e)}'}), 500
+    
 # Função para cadastrar um novo usuário
 def cadastrar_usuario(username, email, password, cpf):
     with open('users.txt', 'a') as file:
