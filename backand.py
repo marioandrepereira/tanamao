@@ -1,12 +1,13 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS  # Importe o módulo CORS
 
 app = Flask(__name__)
+CORS(app)  # Ative o CORS para todos os caminhos da sua aplicação
 
 # Função para cadastrar um novo usuário
 def cadastrar_usuario(username, email, password, cpf):
     with open('users.txt', 'a') as file:
         file.write(f"{username},{password},{email},{cpf}\n")
-
 
 # Função para autenticar um usuário
 def autenticar_usuario(username, password):
@@ -17,7 +18,6 @@ def autenticar_usuario(username, password):
                 return True
     return False
 
-
 # Rota para cadastrar um novo usuário
 @app.route('/cadastro', methods=['POST'])
 def cadastro():
@@ -27,11 +27,9 @@ def cadastro():
     password = data.get('password')
     cpf = data.get('cpf')
 
-
     cadastrar_usuario(username, email, password, cpf)
    
     return jsonify({'message': 'Usuário cadastrado com sucesso!'})
-
 
 # Rota para autenticar um usuário
 @app.route('/login', methods=['POST'])
@@ -40,12 +38,10 @@ def login():
     username = data.get('username')
     password = data.get('password')
 
-
     if autenticar_usuario(username, password):
         return jsonify({'message': 'Login bem-sucedido!'})
     else:
         return jsonify({'message': 'Usuário ou senha inválidos'}), 401
-
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=3000)
