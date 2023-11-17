@@ -1,9 +1,8 @@
-from flask import Flask, request, jsonify
-from flask_cors import CORS  # Importe o módulo CORS
+from flask import Flask, render_template, request, jsonify
+from flask_cors import CORS
 
 app = Flask(__name__)
-CORS(app)  # Ative o CORS para todos os caminhos da sua aplicação
-
+CORS(app)
 
 # Função para obter informações do perfil do usuário
 def obter_informacoes_perfil(username):
@@ -54,6 +53,7 @@ def autenticar_usuario(username, password):
             if username == stored_username and password == stored_password:
                 return True
     return False
+
 
 # Rota para cadastrar um novo usuário
 @app.route('/cadastro', methods=['POST'])
