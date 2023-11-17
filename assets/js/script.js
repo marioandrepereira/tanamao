@@ -1,45 +1,71 @@
-const { Pool } = require('pg');
+// script.js
 
-// Configurações da conexão com o banco de dados
-const pool = new Pool({
-  user: 'postgres',
-  host: '127.0.0.1',
-  database: 'tanamao',
-  password: '150908mario',
-  port: 5432, // Porta padrão do PostgreSQL é 5432
-});
+document.addEventListener("DOMContentLoaded", function () {
+  const loginForm = document.getElementById("login-form");
+  const cadastroForm = document.getElementById("cadastro-form");
 
-document.addEventListener('DOMContentLoaded', function(){
-  const signUpForm = document.querySelector('.sign-up-form');
-  signUpForm.addEventListener('submit', function(event) {
-    event.preventDefault(); // Impede o envio do formulário
+  loginForm.addEventListener("submit", function (event) {
+    event.preventDefault();
+    // Implement API call for login
+    const username = loginForm.querySelector('input[type="text"]').value;
+    const password = loginForm.querySelector('input[type="password"]').value;
 
-    // Obtenha os valores dos campos de entrada
-    const username = document.querySelector('#username').value;
-    const email = document.querySelector('#email').value;
-    const password = document.querySelector('#password').value;
-    const cpf = document.querySelector('#cpf').value;
-
-    // Crie um objeto com os dados do formulário
-    const formData = {
-      username: username,
-      email: email,
-      password: password,
-      cpf: cpf
-    };
-
-    // Execute a consulta SQL para inserir os dados na tabela users
-    const query = 'INSERT INTO users (username, email, password, cpf) VALUES ($1, $2, $3, $4)';
-    const values = [formData.username, formData.email, formData.password, formData.cpf];
-
-    pool.query(query, values)
-      .then(result => {
-        // Aqui você pode tratar a resposta do banco de dados, como exibir uma mensagem de sucesso
-        console.log('Cadastro realizado com sucesso:', result);
+    // Example: Replace the following line with your actual API call
+    fetch("/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ username, password }),
+    })
+      .then(response => response.json())
+      .then(data => {
+        // Handle the response from the login API call
+        console.log(data);
+        if (data.message === "Login bem-sucedido!") {
+          // Redirect to user.html after successful login
+          window.location.href = "user.html";
+        } else {
+          // Handle other responses or display an error message
+          alert("Usuário ou senha inválidos");
+        }
       })
       .catch(error => {
-        // Aqui você pode tratar os erros, como exibir uma mensagem de erro
-        console.error('Erro ao cadastrar:', error);
+        console.error("Error during login API call:", error);
+      });
+  });
+
+  cadastroForm.addEventListener("submit", function (event) {
+    event.preventDefault();
+    // Implement API call for cadastro
+    const formData = new FormData(cadastroForm);
+    const formObject = {};
+    formData.forEach((value, key) => {
+      formObject[key] = value;
+    });
+
+    // Example: Replace the following line with your actual API call
+    fetch("/cadastro", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formObject),
+    })
+      .then(response => response.json())
+      .then(data => {
+        // Handle the response from the cadastro API call
+        console.log(data);
+        if (data.message === "Usuário cadastrado com sucesso!") {
+          // Display a success message or handle accordingly
+          alert("Usuário cadastrado com sucesso!");
+        } else {
+          // Handle other responses or display an error message
+          alert("Erro ao cadastrar usuário");
+        }
+      })
+      .catch(error => {
+        console.error("Error during cadastro API call:", error);
       });
   });
 });
